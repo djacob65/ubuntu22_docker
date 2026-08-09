@@ -67,10 +67,6 @@ usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <image nam
      -t                 : flag indicating that it is just for testing cloud connection
 ```
 
-*  After performing both operations, you should see the following information in the OpenStack dashboard:
-
-![dashboard](../images/openstack_dashboard.png)
-
 For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/os-cloud/
 
 <br>
