@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[ $# -eq 0 ] && echo "You must specify a valid docker container as input" && exit 1
+
+ret=$(docker ps | grep $1 1>/dev/null 2>/dev/null; echo $?)
+
+[ $ret -ne 0 ] && echo  "You must specify a valid docker container as input" && exit $ret
+
+docker exec -it $1 /bin/bash
+

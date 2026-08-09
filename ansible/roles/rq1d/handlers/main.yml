@@ -1,0 +1,6 @@
+---
+
+- name: Recharger systemd
+  systemd:
+    daemon_reload: true
+  become: true

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+LIST=$(docker images | grep -E "<none>" | awk '{ print $3 }')
+N=$(echo $LIST | wc -w | tr -d "\n")
+[ $N -gt 0 ] && for i in $LIST; do docker rmi -f $i; done
+
+exit 0

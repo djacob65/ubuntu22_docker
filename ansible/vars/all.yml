@@ -1,0 +1,19 @@
+---
+
+server:
+  timezone: MET
+  locale: fr_FR.UTF-8
+
+vm:
+  hostname: vmdocker
+  ansible_dir: /vagrant/ansible
+  data_folder: /media/sf_DATA
+
+netplan:
+  interface1: enp0s3
+  interface2: enp0s8
+  address: 192.168.99.1
+  cidr: 24
+  dns:
+    - 8.8.8.8
+    - 1.1.1.1

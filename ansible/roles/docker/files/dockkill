@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -gt 0 ]; then
+   NAME=$1
+   LIST=$(docker ps -a | grep "$NAME" | awk '{ print $1 }')
+   N=$(echo $LIST | wc -w | tr -d "\n")
+   [ $N -gt 0 ] && for i in $LIST; do docker rm -f $i; done
+else
+   LIST=$(docker ps -a -q)
+   N=$(echo $LIST | wc -w | tr -d "\n")
+   [ $N -gt 0 ] && for i in $LIST; do docker rm -f $i; done
+fi
+
+exit 0

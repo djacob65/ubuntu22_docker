@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  #gather_facts: no
+
+  vars_files:
+    - vars/all.yml
+
+  environment:
+    PYTHONHTTPSVERIFY: 0
+
+  roles:
+    - vm
+    - server
+    - docker
+    - rq1d
+    - npflow
+
+  handlers:
+    - name: Apply netplan
+      ansible.builtin.command: netplan apply

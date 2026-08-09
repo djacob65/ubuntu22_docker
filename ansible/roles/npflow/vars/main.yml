@@ -1,0 +1,5 @@
+---
+
+docker:
+    npflow: nmrprocflow/nmrprocflow:latest
+    port: 80

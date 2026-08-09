@@ -1,0 +1,21 @@
+[Unit]
+Description=RnmrQuant1D UI
+Documentation=
+After=docker.service
+Wants=
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/local/bin/dockpurge
+ExecStart=/usr/local/bin/rq1d start
+ExecStop=/usr/local/bin/rq1d stop
+ExecReload=/usr/local/bin/rq1d restart
+LimitNOFILE=1048576
+LimitNPROC=1048576
+LimitCORE=infinity
+MountFlags=slave
+RemainAfterExit=True
+
+[Install]
+WantedBy=multi-user.target
+

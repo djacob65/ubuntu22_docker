@@ -1,0 +1,71 @@
+---
+
+- name: find files to copy
+  find:
+    paths: "{{vm.ansible_dir}}/roles/npflow/files/bin/"
+    patterns: "*"
+  register: files_to_copy
+
+- name: Copy the utils into /usr/local/bin
+  copy:
+    src: "{{ item.path }}"
+    dest: /usr/local/bin/
+    mode: 0775
+  with_items: "{{ files_to_copy.files }}"
+
+- name: Copy service files into Systemd
+  copy:
+    src: "{{ item }}"
+    dest: /usr/lib/systemd/system/
+    mode: 0644
+  with_fileglob:
+    - files/systemd/*.service
+
+- name: Create /opt/npflow directory if it does not exist
+  file:
+    path: /opt/npflow
+    state: directory
+    mode: 0755
+
+- name: Copy etc folder under /opt/npflow
+  synchronize:
+    src: files/etc
+    dest: /opt/npflow
+    dirs: yes
+    recursive: yes
+
+- name: Create a crontab entry for container cleaning
+  ansible.builtin.cron:
+    name: "clean container"
+    minute: "10"
+    hour: "6,14,22"
+    job: "sh /opt/npflow/etc/purge_tmp.cron"
+
+- name: Copy the npflow scripts
+  template: src={{item.src}} dest={{item.dest}} mode='0755'
+  with_items:
+     - { src: 'npflow.tpl',  dest: '/opt/npflow/npflow' }
+
+- name: Create /opt/data if it does not exist
+  file:
+    path: /opt/data
+    state: directory
+    mode: 0777
+
+- name: Create /opt/data/tmp if it does not exist
+  file:
+    path: /opt/data/tmp
+    state: directory
+    mode: 0777
+
+- name: Create /opt/data/tmp/np if it does not exist
+  file:
+    path: /opt/data/tmp/np
+    state: directory
+    mode: 0777
+
+- name: Create /opt/data/tmp/nv if it does not exist
+  file:
+    path: /opt/data/tmp/nv
+    state: directory
+    mode: 0777

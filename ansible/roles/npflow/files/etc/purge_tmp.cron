@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# crontab : Purge data space of nmrprocflow (edit with crontab -e)
+# 10 6,14,22 * * * sh /opt/npflow/etc/purge_tmp.cron
+
+INI=/opt/npflow/etc/npflow.conf
+CONTAINER=npflow
+
+DEFDATADIR=/opt/data
+DATADIR=$(cat $INI | grep DATASETS | cut -d'=' -f2 | tr -d "\n")
+DATADIR=${DATADIR:-$DEFDATADIR}
+echo "DATADIR="${DATADIR}
+
+DEFPURGESESSIONS=1
+PURGESESSIONS=$(cat $INI | grep PURGESESSIONS | cut -d'=' -f2 | tr -d "\n")
+PURGESESSIONS=${PURGESESSIONS:-$DEFPURGESESSIONS}
+
+V=$(expr $PURGESESSIONS \* 1440)
+DELAYMIN=$(echo $V | tr -d "\n")
+echo "DELAYMIN="${DELAYMIN}
+
+# NPFLOW - Make the household
+sudo docker ps -a | grep "$CONTAINER" 1>/dev/null 2>/dev/null; RET=$?
+if [ $RET -eq 0 ]; then
+
+  echo -n "Make the household ..."
+  NB=$(find $DATADIR/_* -type d  ! -name '.out' 2>/dev/null | wc -l | tr -d "\n" 2>/dev/null)
+  if [ $NB -gt 0 ]; then
+     find $DATADIR/_* -type d ! -name '.out' -mmin +${DELAYMIN} -exec rm -rf {} \; 2>/dev/null
+  fi
+
+  sudo /usr/bin/docker exec -it $CONTAINER sh -c "rm -f /srv/shiny-server/core.*; rm -f /var/www/html/nv/core.*; echo '' > /var/log/apache2/access.log"
+  echo "OK"
+fi

@@ -1,0 +1,20 @@
+---
+
+- name: Copier le fichier dans /usr/local/bin
+  copy:
+    src: rq1d
+    dest: /usr/local/bin/rq1d
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+
+- name: Copier le fichier de service systemd rq1d
+  copy:
+    src: rq1d.service
+    dest: /etc/systemd/system/rq1d.service
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify: Recharger systemd
