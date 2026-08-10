@@ -1,20 +1,16 @@
 ---
 
-- name: Copier le fichier dans /usr/local/bin
-  copy:
-    src: rq1d
-    dest: /usr/local/bin/rq1d
-    owner: root
-    group: root
-    mode: '0755'
-  become: true
+- name: Copy the rq1d script
+  template: src={{item.src}} dest={{item.dest}} mode='0755'
+  with_items:
+     - { src: 'rq1d.tpl',  dest: '/usr/local/bin/rq1d' }
 
-- name: Copier le fichier de service systemd rq1d
+- name: Copy rq1d.service file into Systemd
   copy:
-    src: rq1d.service
-    dest: /etc/systemd/system/rq1d.service
+    src: "{{ item }}"
+    dest: /usr/lib/systemd/system/
     owner: root
     group: root
-    mode: '0644'
-  become: true
-  notify: Recharger systemd
+    mode: 0644
+  with_fileglob:
+    - files/*.service

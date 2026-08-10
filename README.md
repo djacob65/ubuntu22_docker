@@ -26,7 +26,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagran
 
 * The box was built on the _ubuntu 22.04_ operating system, with a _20 GB_ hard drive, and for the _VirtualBox_ provider, and was generated as described in this [github repository](https://github.com/inrae/jupyterhub-vm) by following the two first steps.
 
-* As Vagrant Cloud is set to be discontinued (March 2027), we have chosen to store the Vagrant box on Google Drive. You therefore need to download it and save it in the ./builds folder. Link to download the box : https://drive.google.com/file/d/1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE/view?usp=drive_link
+* As Vagrant Cloud is set to be discontinued (March 2027), we have chosen to store the Vagrant box on Google Drive. You therefore need to download it and save it in the _./builds_ folder. Link to download the box : https://drive.google.com/file/d/1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE/view?usp=drive_link
 
 * But if you have python already install on your machine, then :
 
@@ -49,7 +49,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagran
 * The tested version is _Vagrant 2.4.9_
 
 * Based on :
-   * Vagrant box : the box file _small-ubuntu2204.box_ must be now stored in the builds folder as described in the previous step
+   * Vagrant box : the box file _small-ubuntu2204.box_ must be now stored in the _builds_ folder as described in the previous step
    * [Vagrantfile](Vagrantfile) : describes the type of the machine and how to configure and provision it. 
    * [ansible](ansible/playbook.yml) : configures the installation of the VM and the packages, modules, etc.
 

@@ -2,16 +2,14 @@
 - hosts: all
   become: true
   become_user: root
-  #gather_facts: no
 
   vars_files:
-    - vars/all.yml
+    - vars/main.yml
 
   environment:
     PYTHONHTTPSVERIFY: 0
 
   roles:
-    - vm
     - server
     - docker
     - rq1d

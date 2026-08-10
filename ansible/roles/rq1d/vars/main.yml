@@ -1,0 +1,7 @@
+---
+
+docker:
+    rq1d: nmrprocflow/rnmrquant1d:latest
+    port: 80
+    dev: 0
+    cores: 4

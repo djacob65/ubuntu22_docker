@@ -41,7 +41,7 @@
     hour: "6,14,22"
     job: "sh /opt/npflow/etc/purge_tmp.cron"
 
-- name: Copy the npflow scripts
+- name: Copy the npflow script
   template: src={{item.src}} dest={{item.dest}} mode='0755'
   with_items:
      - { src: 'npflow.tpl',  dest: '/opt/npflow/npflow' }
