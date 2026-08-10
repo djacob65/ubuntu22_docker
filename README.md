@@ -7,8 +7,8 @@ Automating the creation of a virtual machine (VM) from a Vagrant box, including 
 * for using with _VirtualBox_ or _OpenStack_.
 
 The VM is generic enough to allow the installation of any application from a Docker image. Two examples are provided :
-* NMRProcFlow : see the [rq1d](https://github.com/djacob65/ubuntu22_docker/tree/main/ansible/roles/rq1d) Ansible role and https://nmrprocflow.org/
-* RnmrQuant1D UI : see the [npflow](https://github.com/djacob65/ubuntu22_docker/tree/main/ansible/roles/npflow) Ansible role and https://github.com/djacob65/RnmrQuant1D_UI 
+* NMRProcFlow : see the [npflow](https://github.com/djacob65/ubuntu22_docker/tree/main/ansible/roles/npflow) Ansible role and https://nmrprocflow.org/
+* RnmrQuant1D UI : see the [rq1d](https://github.com/djacob65/ubuntu22_docker/tree/main/ansible/roles/rq1d) Ansible role and https://github.com/djacob65/RnmrQuant1D_UI 
 
 
 For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/
