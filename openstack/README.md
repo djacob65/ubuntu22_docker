@@ -43,16 +43,17 @@ The scripts provided here are used to send an image and then create an instance 
 
 ```
 $ sh ./openstack/push_cloud.sh -h
-usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <vmdk file>] [-i <image name>] [-t]
+usage: sh ./openstack/push_cloud.sh [-c <cloudname>] [-p <password>] [-d <vmdk file>] [-i <image name>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
      -p <password>      : password to have access on the cloud
      -d <vmdk file>     : the full path of the VM disk (./builds/ubuntu2204-disk001.vmdk by default)
-     -i <image name>    : the image name of the VM once pushed on the cloud
+     -i <image name>    : the image name of the VM once pushed on the cloud (ubuntu22-docker-img by default)
      -t                 : flag indicating that it is just for testing cloud connection
+	                      As a results, it will return the available image list on the cloud.
 ```
 <br>
 
-* **instance_to_cloud.sh** : Creates an instance from a previously uploaded image. You must choose the keypair and flavor. This information is provided by specifying the _t_ option.
+* **instance_to_cloud.sh** : Creates an instance from a previously uploaded image. You must choose the keypair and flavor. This information must be selected from those available in the cloud. First consult the lists by specifying the _t_ option.
     * **Note** : You need to adapt the [user-data.txt](user-data.txt) file so that _/usr/local/bin/get-hostname_ script returns either the full instance name or the IP address, depending on the chosen openstack cloud and what is needed to access it on the Internet.
 
 ```
@@ -60,18 +61,19 @@ $ sh ./openstack/instance_to_cloud.sh -h
 usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <image name>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
      -p <password>      : password to have access on the cloud
+     -i <image name>    : the image name of the VM once pushed on the cloud (ubuntu22-docker-img by default)
+     -s <instance name> : the instance name of the VM (rnmrquant1d by default)
      -k <keypair>       : genostack by default
      -f <flavor>        : m1.xlarge by default
-     -i <image name>    : the image name of the VM once pushed on the cloud
-     -s <instance name> : the instance name of the VM
      -t                 : flag indicating that it is just for testing cloud connection
+                          As a results, it will return the lists  of instances, keypairs and flavors available on the cloud.
 ```
 
 For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/os-cloud/
 
 <br>
 
-**Full script** : Once the tools are installed and the configuration is complete, the entire **workflow from the Base Box to a functional instance on the OpenStack cloud**, can be written as follows:
+**Full script** : Once the tools are installed and the configuration is complete, the entire **workflow from the Vagrant box to a functional instance on the OpenStack cloud**, can be written as follows:
 
 ```
 cd /cygdrive/c/VirtualMach/Vagrant/ubuntu2204_docker

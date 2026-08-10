@@ -1,6 +1,6 @@
 ## Purpose
 
-Building automation of a virtual machine (VM) from a Base Box in the Vagrant Cloud
+Automating the creation of a virtual machine (VM) from a Vagrant box on Vagrant Cloud
 
 * based on [ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/)
 * with the help of _Vagrant_ and _Ansible_ tools 
@@ -27,7 +27,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagran
 * The tested version is _Vagrant 2.4.9_
 
 * Based on :
-   * [Base Box](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1) : the base box stored in the Vagrant Cloud
+   * [Vagrant box](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1) : the box is stored in the Vagrant Cloud
    * [Vagrantfile](Vagrantfile) : describes the type of the machine and how to configure and provision it. 
    * [ansible](ansible/playbook.yml) : configures the installation of the VM and the packages, modules, etc.
 
@@ -65,11 +65,11 @@ time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vag
 ```
 <br>
 
-### 3 - Upload Final VM on an OpenStack cloud
+### 3 - Upload the VM on an OpenStack cloud
 
 * First you must extract the VMDK file of the virtual machine (_ubuntu2204-disk001.vmdk_) from the TAR archive. Put it under the same directory (i.e. _./builds_)
 
-* Upload the final VM on a OpenStack cloud, based on :
+* Upload the VMDK file on a OpenStack cloud, based on :
     * [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/) (OSC) which must be installed
     * [clouds.yaml](openstack/README.md) : definition file of the openstack cloud (e.g. [GenOuest](https://www.genouest.org/2017/03/02/cluster/))
     * [openstack/push_cloud.sh](openstack/README.md) : shell script that does the job

@@ -58,7 +58,7 @@ err_report() {
 trap 'err_report' ERR
 
 if [ -z $OS_PASSWORD ]; then
-  echo "Please enter your OpenStack password, then [shift][Enter] :"
+  echo "Please enter your OpenStack password, then [Enter] :"
   read -sr OS_PASSWORD
 fi
 
@@ -75,7 +75,6 @@ if [ $DEL -eq 1 ]; then
 fi
 
 if [ $TEST -eq 1 ]; then
-   echo "Server list:";   ostack server list
    echo
    echo "Image list:";   ostack image list | grep -E "(${VM_TMPL}|^\+|Status)"
    echo

@@ -63,7 +63,7 @@ err_report() {
 trap 'err_report' ERR
 
 if [ -z $OS_PASSWORD ]; then
-  echo "Please enter your OpenStack Password: "
+  echo "Please enter your OpenStack Password, then [Enter] :"
   read -sr OS_PASSWORD
 fi
 
