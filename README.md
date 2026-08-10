@@ -1,6 +1,6 @@
 ## Purpose
 
-Automating the creation of a virtual machine (VM) from a Vagrant box on Vagrant Cloud
+Automating the creation of a virtual machine (VM) from a Vagrant box
 
 * based on [ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/)
 * with the help of _Vagrant_ and _Ansible_ tools 
@@ -15,19 +15,41 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagran
 
 * **VirtualBox**: this is what we call the [provider](https://www.vagrantup.com/docs/providers). If the objective is to use the VM on his desktop computer, then the VM will have to run in _VirtualBox_. If the objective is to use the VM in the cloud (_OpenStack_ for example), then _VirtualBox_ is only used here as an intermediary to build the VM.
 
-* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for [Providers](https://www.vagrantup.com/docs/providers) by [provisioning](https://www.vagrantup.com/docs/provisioning) them by _Provisioners_ such as [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://developer.hashicorp.com/vagrant/docs/boxes) for [Providers](https://www.vagrantup.com/docs/providers) by [provisioning](https://www.vagrantup.com/docs/provisioning) them by _Provisioners_ such as [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
 
 <br>
 
-### 1 - Create the VM
+### 1 - Get the Vagrant box
+
+* The box was built on the _ubuntu 22.04_ operating system, with a _20 GB_ hard drive, and for the _VirtualBox_ provider, and was generated as described in this [github repository](https://github.com/inrae/jupyterhub-vm) by following the two first steps.
+
+* As Vagrant Cloud is set to be discontinued (March 2027), we have chosen to store the Vagrant box on Google Drive. You therefore need to download it and save it in the ./builds folder. Link to download the box : https://drive.google.com/file/d/1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE/view?usp=drive_link
+
+* But if you have python already install on your machine, then :
+
+     1 - install the Google tool "_gdown_" — written in _Python_ — as follows:
+
+     ```
+     pip3 install gdown
+     ```
+
+
+     2 - run the following command yo retrieve the box
+
+     ```
+     gdown -O ./builds/small-ubuntu2204.box  1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE
+     ```
+
+
+### 2 - Create the VM
 
 * The tested version is _Vagrant 2.4.9_
 
 * Based on :
-   * [Vagrant box](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1) : the box is stored in the Vagrant Cloud
+   * Vagrant box : the box file _small-ubuntu2204.box_ must be now stored in the builds folder as described in the previous step
    * [Vagrantfile](Vagrantfile) : describes the type of the machine and how to configure and provision it. 
    * [ansible](ansible/playbook.yml) : configures the installation of the VM and the packages, modules, etc.
 
@@ -55,7 +77,7 @@ ssh -p 2222 vagrant@127.0.0.1
 
 <br>
 
-### 2 - Export the VM
+### 3 - Export the VM
 
 * Export the VM as a TAR archive (_tar.gz_ format). It will included the VMDK VM file (_ubuntu2204-disk001.vmdk_)
 
@@ -65,7 +87,7 @@ time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vag
 ```
 <br>
 
-### 3 - Upload the VM on an OpenStack cloud
+### 4 - Upload the VM on an OpenStack cloud
 
 * First you must extract the VMDK file of the virtual machine (_ubuntu2204-disk001.vmdk_) from the TAR archive. Put it under the same directory (i.e. _./builds_)
 
@@ -90,7 +112,7 @@ Please enter your OpenStack password, then [Enter] :
 
 <br>
 
-### 4 - Do the housework on your local disk
+### 5 - Do the housework on your local disk
 
 
 * Stop the VM if not yet done
@@ -120,7 +142,7 @@ rm -f ./builds/*
 * Optionally remove the base box from the local vagrant registry 
 
 ```
-rm -rf $HOME/.vagrant.d/boxes/djreg-*
+rm -rf $HOME/.vagrant.d/boxes/small-ubuntu2204
 ```
 
 <br>
