@@ -1,12 +1,12 @@
 ## Purpose
 
-Automating the creation of a virtual machine (VM) from a Vagrant box, including Docker software.
+Automating the creation of a virtual machine (VM) including Docker software, from a Vagrant box
 
 * based on [ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/)
 * with the help of _Vagrant_ and _Ansible_ tools 
 * for using with _VirtualBox_ or _OpenStack_.
 
-The VM is generic enough to allow the installation of any application from a Docker image. Two examples are provided :
+The VM is generic enough to allow the installation of any application from a Docker image. 2 examples are provided:
 * NMRProcFlow : see the [npflow](https://github.com/djacob65/ubuntu22_docker/tree/main/ansible/roles/npflow) Ansible role and https://nmrprocflow.org/
 * RnmrQuant1D UI : see the [rq1d](https://github.com/djacob65/ubuntu22_docker/tree/main/ansible/roles/rq1d) Ansible role and https://github.com/djacob65/RnmrQuant1D_UI 
 
@@ -61,8 +61,6 @@ git clone https://github.com/djacob65/ubuntu22_docker.git
 
 
 ### 2 - Create the VM
-
-* The tested version is _Vagrant 2.4.9_
 
 * Based on :
    * Vagrant box : the box file _small-ubuntu2204.box_ must be now stored in the _builds_ folder as described in the previous step
