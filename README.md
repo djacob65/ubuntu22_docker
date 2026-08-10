@@ -23,6 +23,18 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagran
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
+<br>
+
+* Before proceeding with each of the steps described below, you must first retrieve all configuration files and scripts.
+
+```
+git clone https://github.com/djacob65/ubuntu22_docker.git
+```
+
+<br>
+
+**Implementation** : The workflow implementation described below was carried out with _Vagrant 2.4.9_ and _VirtualBox 7.2.6_.  The environment being tested is under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_. However, using a recent version of Ubuntu would be highly advantageous.
+
 
 <br>
 
