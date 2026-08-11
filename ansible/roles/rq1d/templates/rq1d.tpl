@@ -9,6 +9,9 @@ NAME=rq1d
 DEV={{docker.dev}}
 CORES={{docker.cores}}
 
+HOSTIP=""
+[ ! -z "$SSH_CONNECTION" ] && HOSTIP=$(echo "$SSH_CONNECTION" | cut -d ' ' -f3 | tr -d "\n")
+
 usage() {
     echo "usage: sh $0 help|start|stop|restart|ps|logs|pull|del"
     exit 1
@@ -30,7 +33,7 @@ case "$CMD" in
           ;;
    start)
           echo -n "Launch $NAME ($DOCKIMG image) (port $PORT) ..."
-          $DOCKER run -d -e "DEV="$DEV -e "CORES="$CORES -p $PORT:3838 -v /tmp:/tmp --name $NAME $DOCKIMG 2>&1 1>/dev/null
+          $DOCKER run -d -e "DEV="$DEV -e "CORES="$CORES -e "HOSTIP="$HOSTIP -p $PORT:3838 -v /tmp:/tmp --name $NAME $DOCKIMG 2>&1 1>/dev/null
           if [ $? -eq 0 ]; then
              echo " OK"
           else
