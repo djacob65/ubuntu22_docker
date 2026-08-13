@@ -127,10 +127,13 @@ IP=$(ostack server list | grep $SERVER_NAME | cut -d'|' -f5 | tr -d ' ' | cut -d
 echo "IP = $IP"
 
 alias vmexec="ssh -o StrictHostKeyChecking=no -i $RSA_KEY -J $PROXY root@$IP"
+sleep 5
 
 # Start the RnmrQuant1D UI application
 vmexec systemctl enable rq1d
 vmexec systemctl start rq1d
+vmexec docker images
+vmexec docker ps -a
 
 ```
 
