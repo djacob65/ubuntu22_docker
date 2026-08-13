@@ -4,8 +4,17 @@
 
 ## Variables
 
-BOX_NAME = "small-ubuntu2204"
-BOX_URL = "file://#{File.expand_path("builds/small-ubuntu2204.box", __dir__)}"
+# Config. valid until March 2027
+BOX_NAME = "djreg/small-ubuntu2204"
+BOX_VERSION = "1.1"
+
+# Config. to be adopted after March 2027
+# You must get the small-ubuntu2204.box before :
+#     gdown -O ./builds/small-ubuntu2204.box  1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE
+# then uncomment the line with 'config.vm.box_url' below
+#BOX_NAME = "small-ubuntu2204"
+#BOX_URL = "file://#{File.expand_path("builds/small-ubuntu2204.box", __dir__)}"
+
 APP_NAME="ubuntu"
 VM_NAME="ubuntu2204"
 MY_IP="192.168.99.1"
@@ -21,7 +30,8 @@ end
 Vagrant.configure("2") do |config|
 
   config.vm.box = BOX_NAME
-  config.vm.box_url = BOX_URL
+  config.vm.box_version = BOX_VERSION
+  #config.vm.box_url = BOX_URL
   config.vm.hostname = APP_NAME
 
   config.vm.network "private_network", ip: MY_IP
