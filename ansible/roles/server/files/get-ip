@@ -1,14 +1,7 @@
 #!/bin/bash
 
-cat <<EOF > /usr/local/bin/get-ip
-#!/bin/bash
-
-INTERFACE=\$(netstat -r | grep -v docker | tail -1 | sed -e "s/ \+/;/g" | cut -d';' -f8)
-IP=\$(ip -4 a | grep -A2 -E " \${INTERFACE}:" | grep 'inet' | sed -e "s/^.*inet \([^/]\+\).*$/\1/" | tail -1)
+INTERFACE=$(netstat -r | grep -v docker | tail -1 | sed -e "s/ \+/;/g" | cut -d';' -f8)
+IP=$(ip -4 a | grep -A2 -E " ${INTERFACE}:" | grep 'inet' | sed -e "s/^.*inet \([^/]\+\).*$/\1/" | tail -1)
 echo $IP
 
 exit 0
-EOF
-
-
-chmod 755 /usr/local/bin/get-ip
