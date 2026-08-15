@@ -9,8 +9,7 @@ NAME=rq1d
 DEV={{docker.dev}}
 CORES={{docker.cores}}
 
-HOSTIP=""
-[ ! -z "$SSH_CONNECTION" ] && HOSTIP=$(echo "$SSH_CONNECTION" | cut -d ' ' -f3 | tr -d "\n")
+HOSTIP=$(get-ip | tr -d "\n")
 
 usage() {
     echo "usage: sh $0 help|start|stop|restart|ps|logs|pull|del"

@@ -31,3 +31,13 @@
 
 - name: Set default system language pack
   shell: localectl set-locale LANG={{server.locale}}
+
+- name: Copy get-ip file in /usr/local/bin
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+  with_fileglob:
+    - files/get-ip
