@@ -8,8 +8,16 @@ PORT={{docker.port}}
 NAME=rq1d
 DEV={{docker.dev}}
 CORES={{docker.cores}}
+MAXSESSION={{docker.maxsession}}
+
+USRCONMGR=0
+USERLIST=/opt/data/conf/userlist
 
 HOSTIP=$(get-ip | tr -d "\n")
+
+ENV="-e DEV=$DEV -e CORES=$CORES -e HOSTIP=$HOSTIP -e MAXSESSION=$MAXSESSION"
+
+TMPDIR=/tmp
 
 usage() {
     echo "usage: sh $0 help|start|stop|restart|ps|logs|pull|del"
@@ -32,8 +40,9 @@ case "$CMD" in
           ;;
    start)
           echo -n "Launch $NAME ($DOCKIMG image) (port $PORT) ..."
-          $DOCKER run -d -e "DEV="$DEV -e "CORES="$CORES -e "HOSTIP="$HOSTIP -p $PORT:3838 -v /tmp:/tmp --name $NAME $DOCKIMG 2>&1 1>/dev/null
+          $DOCKER run -d $ENV -p $PORT:3838 -v $TMPDIR:/tmp --name $NAME $DOCKIMG 2>&1 1>/dev/null
           if [ $? -eq 0 ]; then
+            [ $USRCONMGR -eq 1 ] && $DOCKER cp $USERLIST $NAME:/run/userlist 2>&1 1>/dev/null
              echo " OK"
           else
              echo " Failed"

@@ -19,7 +19,7 @@
 - name: Configure static IP with Netplan
   ansible.builtin.template:
     src: netplan-static.yaml.j2
-    dest: /etc/netplan/01-netcfg.yaml
+    dest: /etc/netplan/99-config.yaml
     owner: root
     group: root
     mode: '0600'

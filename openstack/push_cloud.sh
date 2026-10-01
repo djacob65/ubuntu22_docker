@@ -16,10 +16,10 @@ DEL=0
 PWD=$(pwd)
 
 usage() {
-    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-d <vmdk file>] [-i <image name>] [-t]
+    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-d <VM file>] [-i <image name>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file ($CLOUD by default)
      -p <password>      : password to have access on the cloud
-     -d <vmdk file>     : the full path of the VM disk ($VMFILE by default)
+     -d <VM file>       : the full path of the VM disk ($VMFILE by default)
      -i <image name>    : the image name of the VM once pushed on the cloud ($IMAGE_NAME by default)
      -t                 : flag indicating that it is just for testing cloud connection
 "
@@ -27,7 +27,7 @@ usage() {
 }
 
 # Get Cmd line arguments depending on options
-while getopts c:p:i:l:rth opt
+while getopts c:p:d:i:l:rth opt
 do
        case $opt in
        h) usage

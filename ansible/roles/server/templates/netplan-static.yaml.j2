@@ -2,11 +2,11 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    {{ netplan.interface1 }}:
+    {{ netplan.interface }}:
       dhcp4: yes
-    {{ netplan.interface2 }}:
-      dhcp4: no
-      addresses:
-        - {{ netplan.address }}/{{ netplan.cidr }}
+      routes:
+        - to: default
+          via: {{ netplan.gateway }}
       nameservers:
-        addresses: {{ netplan.dns }}
+        search: [{{ netplan.search }}]
+        addresses: [{{ netplan.dns }}]

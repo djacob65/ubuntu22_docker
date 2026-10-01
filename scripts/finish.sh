@@ -1,6 +1,7 @@
 #!/bin/bash -eux
 
-# Add a SSH key to the authorized keys for root account
+# Add a SSH key to the authorized keys for vagrant account
+[ -f /vagrant/scripts/ssh_keys ] && cat /vagrant/scripts/ssh_keys >> /home/vagrant/.ssh/authorized_keys
 [ -f /vagrant/scripts/ssh_keys ] && cat /vagrant/scripts/ssh_keys >> /root/.ssh/authorized_keys
 
 # Uninstall Ansible
@@ -41,7 +42,7 @@ rm -f /EMPTY
 dd if=/dev/zero of=/EMPTY bs=1M || true
 rm -f /EMPTY
 
-# Add `sync` so Packer doesn't quit too early, before the large file is deleted.
+# Add `sync` so Vagrant doesn't quit too early, before the large file is deleted.
 sync
 
 exit 0

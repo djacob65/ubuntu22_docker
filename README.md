@@ -84,7 +84,7 @@ time vagrant up | tee logs/vagrant.log
 * At this stage, you can use the final VM given that it is running on the provider (_VirtualBox_). So you can connect on it using ssh command (login=_vagrant_, password=_vagrant_):
 
 ```
-ssh -p 2222 vagrant@127.0.0.1
+ssh -o StrictHostKeyChecking=no -p 2222 vagrant@127.0.0.1
 ```
 
 * **Note** : If you wish, you can add one or more SSH keys to the _scripts/ssh_keys_ file, which will then be associated with the root account. This will allow you to log in directly as root. Very practical in development mode but to be avoided in production mode, given that the _vagrant_ account already has full rights with the sudo mechanism.

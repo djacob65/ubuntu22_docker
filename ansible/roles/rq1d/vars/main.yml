@@ -5,3 +5,6 @@ docker:
     port: 80
     dev: 0
     cores: 4
+    maxsession: 2
+
+

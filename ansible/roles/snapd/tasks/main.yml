@@ -1,0 +1,12 @@
+---
+
+- name: "Disable Snapd Service"
+  ansible.builtin.service:
+    name: "snapd"
+    state: stopped
+    enabled: false
+
+- name: "Uninstall Snapd"
+  ansible.builtin.apt:
+    pkg: "snapd"
+    state: absent

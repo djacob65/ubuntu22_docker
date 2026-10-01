@@ -1,4 +1,5 @@
 ---
+
 - hosts: all
   become: true
   become_user: root
@@ -11,10 +12,13 @@
 
   roles:
     - server
+    - snapd
     - docker
     - rq1d
     - npflow
+    - nginx
 
   handlers:
     - name: Apply netplan
       ansible.builtin.command: netplan apply
+

@@ -6,13 +6,10 @@ vm:
   data_folder: /media/sf_DATA
 
 netplan:
-  interface1: enp0s3
-  interface2: enp0s8
-  address: 192.168.99.1
-  cidr: 24
-  dns:
-    - 8.8.8.8
-    - 1.1.1.1
+  interface: enp3s0
+  gateway : 10.10.10.1
+  search: openstackgate.local
+  dns: 10.10.10.2, 8.8.8.8, 1.1.1.1
 
 server:
   timezone: MET

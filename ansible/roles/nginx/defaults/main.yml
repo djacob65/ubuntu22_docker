@@ -1,0 +1,16 @@
+---
+nginx_listen_port: 80
+nginx_server_name: "_"
+nginx_site_name: web_apps
+
+# Proxied web applications (one entry = one access path)
+nginx_apps:
+  - name: npflow
+    path: npflow
+    upstream: "localhost:8080"
+  - name: rq1d
+    path: rq1d
+    upstream: "localhost:8081"
+
+# Maximum inactivity duration for a Shiny WebSocket session
+nginx_proxy_read_timeout: 20d
