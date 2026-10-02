@@ -2,14 +2,22 @@
 # -*- encoding: utf-8 -*-
 # vi: set ft=ruby :
 
-## Variables
+## You must get the small-ubuntu2204.box before
 
-# You must get the small-ubuntu2204.box before :
-#     gdown -O ./builds/small-ubuntu2204.box  1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE
-# then uncomment the line with 'node.vm.box_url' below
+# 1- Using the S3 storage
+#ENV['AWS_PROFILE']='default'
+#ENV['AWS_ENDPOINT_URL']='https://s3-data.meso.umontpellier.fr'
+#BOX_PATH = "bibs6/djacob/boxes"
+#BOX_NAME = "djreg/small-ubuntu2204"
+#BOX_URL = "#{ENV['AWS_ENDPOINT_URL']}/#{BOX_PATH}/#{BOX_NAME}/metadata.json"
+
+# 2- Using the Google Drive
 BOX_NAME = "small-ubuntu2204"
-BOX_URL = "file://#{File.expand_path("builds/small-ubuntu2204.box", __dir__)}"
+BOX_URL = "file://#{File.expand_path("builds/#{BOX_NAME}.box", __dir__)}"
+GOOGLEID = "1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE"
+system("gdown -O ./builds/#{BOX_NAME}.box #{GOOGLEID}") unless File.exist?("./builds/#{BOX_NAME}.box")
 
+## Others Variables
 APP_NAME="ubuntu"
 VM_NAME="ubuntu2204"
 MY_IP="192.168.99.1"
@@ -21,6 +29,7 @@ Vagrant.require_version ">= 2.0.0"
 unless Vagrant.has_plugin?("virtualbox")
   raise 'Missing virtualbox plugin! Make sure to install it by `vagrant plugin install virtualbox`.'
 end
+
 
 Vagrant.configure("2") do |node|
 
